@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+  </ngb-pagination>
+  
+</div>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name <button (click)="sortByName()" class="btn btn-primary">Sort Name</button></th>
+    <th scope="col">Semester   <button (click)="sortBySemester()"class="btn btn-primary"> Sort Semester</button>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of studentsData">
+    <th scope="row">{{ data.id }}</th>
+    <td>{{ data.name }}</td>
+    <td>{{ data.semester}}</td>
+  </tr>
+  </tbody>
+</table>
+
