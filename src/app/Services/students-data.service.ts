@@ -68,5 +68,22 @@ export class StudentsDataService {
       "name": "ayushi",
       "semester": 7
     }
-  ]
+  ];
+
+
+  getStudentLength(){
+    return this.studentDetails.length;
+  }
+
+  getdata(index){
+    let start = (index-1)*5;
+    let end = (index-1)*5+5;
+    return this.studentDetails.filter((student,i)=>{
+      if(i>=start && i<end){
+        // console.log('true')
+        return true;
+      }
+      return false;
+    })
+  }
 }

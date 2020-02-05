@@ -14,33 +14,45 @@ export class AppComponent {
   students:IStudent[];
   page = 1;
   pageSize = 5;
-  collectionSize:number;
+  collectionSize:number=100
+  order:string='decending';
 
 
   ngOnInit(){
-    this.students=this._studentService.studentDetails;
-    this.collectionSize=this.students.length;
+     console.log(this.page)
+     this.collectionSize = this._studentService.getStudentLength();
+
+    // this.students=this._studentService.studentDetails;
+    this.students = this._studentService.getdata(this.page)
+    console.log(this.students);
   }
-  get studentsData():IStudent[] {
-    return this.students.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  }
-  sortByName(){
-    this.students.sort((a,b)=>{
-      return  a.name.toUpperCase()>b.name.toUpperCase() ?1:-1;
-    })
-// {
-//   if(a.name.toUpperCase()>b.name.toUpperCase()){
-//     return 1;
-//   }
-//   else{
-//     return -1;
-//   }
-// })
+  // get studentsData():IStudent[] {
+  //   console.log('ss')
+  //   // return this.students.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  // }
+  sortBy(key){
+        if(this.order=='decending'){
+          this.students.sort((a,b)=>{
+            console.log(a);
+            return  (a[key]).toString().toUpperCase()>(b[key]).toString().toUpperCase() ?1:-1;
+          });
+          this.order="ascending";
+          }
+        else{
+          this.students.sort((a,b)=>{
+            return  (a[key]).toString().toUpperCase()<(b[key]).toString().toUpperCase() ?1:-1;
+            });
+            this.order='decending';
+        }
+      
     }
-    sortBySemester(){
-      this.students.sort((a,b)=>{
-        return  a.semester>b.semester ?1:-1;
-      })
+
+    onPageClick(p){
+      console.log(p)
+      console.log(this.page)
+      this.students = this._studentService.getdata(this.page)
+      console.log(this.students);
     }
+    
   
   }
